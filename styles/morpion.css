@@ -1,0 +1,22 @@
+#morpion_container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#morpion_canvas {
+    border: solid 6px grey;
+    width: 300px;
+    height: 300px;
+    box-shadow: 10px 5px 5px rgb(46, 46, 46);
+}
+
+#morpion_info {
+    width: 300px;
+    min-height: 25px;
+    text-align: center;
+    color: rgb(175, 175, 175);
+}
