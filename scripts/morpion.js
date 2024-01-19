@@ -1,5 +1,12 @@
 function main() {
-    newMorpion();
+    let [mp, mp_cv_ct] = newMorpion();
+    initMorpion(mp, mp_cv_ct);
+
+    const restart_button = document.querySelector("#restart-button");
+
+    restart_button.addEventListener("click", function (event) {
+        initMorpion(mp, mp_cv_ct);
+    })
 }
 
 function newMorpion() {
@@ -10,12 +17,7 @@ function newMorpion() {
 
     var mp = new Morpion(mp_cv, mp_cv_ct, mp_info);
 
-    mp_cv_ct.clearRect(0, 0, 300, 300);
-
-    mp.drawGrid();
-    mp.printInfo("Tour : X");
-
-    mp_cv.addEventListener("click", function (event) {
+    mp.mp_cv.addEventListener("click", function (event) {
         let [x, y] = mp.getClickCoordinates(event);
 
         [x, y] = mp.cellCoordinates(x, y);
@@ -32,6 +34,22 @@ function newMorpion() {
             mp.printInfo("Tour : " + mp.currentPlayer + "<br>Vous ne pouvez pas jouer ici !");
         }
     });
+
+    return [mp, mp_cv_ct];
+}
+
+function initMorpion(mp, mp_cv_ct) {
+    mp_cv_ct.clearRect(0, 0, 300, 300);
+
+    mp.drawGrid();
+    mp.printInfo("Tour : X");
+
+    if (mp.currentPlayer == "O") {
+        mp.currentPlayer = "X";
+    }
+
+    mp.grid = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    mp.freeCells = 9;
 }
 
 class Morpion {
