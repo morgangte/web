@@ -83,8 +83,8 @@ class Morpion {
 
     drawGrid() {
         this.mp_cv_ct.beginPath();
-        this.mp_cv_ct.lineWidth = 5;
-        this.mp_cv_ct.strokeStyle = "black";
+        this.mp_cv_ct.lineWidth = 1;
+        this.mp_cv_ct.strokeStyle = "white";
 
         this.mp_cv_ct.moveTo(100.5, 0);
         this.mp_cv_ct.lineTo(100.5, 300.5);
@@ -113,14 +113,14 @@ class Morpion {
      * @returns 
      */
     drawShape(shape, x, y) {
+        this.mp_cv_ct.beginPath();
+        this.mp_cv_ct.lineWidth = 4;
+        this.mp_cv_ct.strokeStyle = "white";
+
         if (shape == "X") {
 
             x = 101 * x + 12;
             y = 101 * y + 12;
-
-            this.mp_cv_ct.beginPath();
-            this.mp_cv_ct.lineWidth = 6;
-            this.mp_cv_ct.strokeStyle = "black";
 
             this.mp_cv_ct.moveTo(x, y);
             this.mp_cv_ct.lineTo(x + 75, y + 75);
@@ -137,10 +137,6 @@ class Morpion {
 
             x = 101 * x + 50;
             y = 101 * y + 50;
-
-            this.mp_cv_ct.beginPath();
-            this.mp_cv_ct.lineWidth = 6;
-            this.mp_cv_ct.strokeStyle = "black";
 
             this.mp_cv_ct.ellipse(x, y, 38, 38, 0, 0, 2 * Math.PI);
             this.mp_cv_ct.stroke();

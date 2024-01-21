@@ -12,9 +12,7 @@
     <header>
         <div class="left-menubar">
             <a href="./index.html">
-                <div class="menu-select">
-                    Home
-                </div>
+                <img src="./images/home_icon.svg" alt="home">
             </a>
         </div>
 
@@ -37,20 +35,23 @@
                     A propos
                 </div>
             </a>
-
         </div>
     </header>
+    <div id="game-container">
+        <div id="morpion_container">
+            <h1>
+                Tic - Tac - Toe
+            </h1>
+            <canvas id="morpion_canvas" width="300px" height="300px">
+                Morpion
+            </canvas>
 
-    <div id="morpion_container">
-        <canvas id="morpion_canvas" width="300px" height="300px">
-            Morpion
-        </canvas>
+            <div id="morpion_info">
+                Vous pouvez commencer à jouer
+            </div>
 
-        <div id="morpion_info">
-            Vous pouvez commencer à jouer
+            <input type="button" value="Recommencer" id="restart-button" />
         </div>
-
-        <input type="button" value="Recommencer" id="restart-button" />
     </div>
 
     <script type="text/javascript" src="scripts/morpion.js"></script>

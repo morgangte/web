@@ -1,71 +1,158 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
-    background-color: white;
-    color: black;
-    font-size: 18px;
+    background-color: rgb(32, 32, 32);
+    font-size: 16px;
+    color: white;
 }
+
+/* --------------- header ------------------ */
 
 header {
     display: flex;
     flex-direction: row;
     width: 100%;
-    border-bottom: 1px solid rgb(66, 66, 66);
+    border-bottom: 1px solid rgb(46, 46, 46);
     margin: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: 10px 4px 8px rgb(185, 185, 185);
-}
-
-.left-menubar {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    width: 12%;
-}
-
-.right-menubar {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    width: 88%;
-}
-
-.menu-select {
-    padding: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 30px;
-    transition: 0.3s;
-    font-weight: 700;
-    border: 1px solid rgb(66, 66, 66);
-}
-
-.menu-select:hover {
-    background-color: rgb(212, 212, 212);
-    border-radius: 30px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-main {
-    margin: 20px;
-}
-
-a {
-    color: black;
+    box-shadow: 10px 4px 8px rgb(24, 24, 24);
 }
 
 header>div>a {
     text-decoration: none;
 }
 
-li {
-    padding-bottom: 5px;
+.left-menubar {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    width: 6%;
 }
 
-.tab {
-    margin-left: 40px;
+.left-menubar>img,
+.left-menubar>a>img {
+    height: 23px;
+    margin-left: 14px;
 }
+
+.left-menubar>img:hover {
+    cursor: pointer;
+}
+
+.right-menubar {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 94%;
+}
+
+.menu-select {
+    padding: 4px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 30px;
+    transition: 0.1s;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.menu-select:hover {
+    background-color: rgb(66, 66, 66);
+    border-radius: 30px;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+/* ---------------------------------------- */
+
+main {
+    margin: 20px;
+}
+
+a {
+    color: white;
+}
+
+/* ------------- sections -------------------- */
+
+.sections-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+section {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: rgb(51, 51, 51);
+    border-radius: 7px;
+    width: 700px;
+}
+
+section>article {
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    gap: 5px;
+}
+
+section>article>h1 {
+    margin: 0px;
+    font-size: large;
+}
+
+section>article>p {
+    margin: 0px;
+    font-size: medium;
+    color: rgb(255, 255, 255);
+    height: 70%;
+}
+
+section>article>.date,
+section>article>.langages {
+    padding-top: 1px;
+    font-size: small;
+    color: rgb(189, 189, 189);
+    height: 8%;
+}
+
+section>img {
+    margin: 5px;
+    border-radius: 7px;
+    width: 330px;
+}
+
+/* Si la section comprend une image */
+.avec-img {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+/* Si la section est cliquable */
+.lien-de-section {
+    text-decoration: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.lien-de-section>.avec-lien>article>h1:after {
+    content: "🗗";
+}
+
+.avec-lien {
+    transition: 0.1s;
+}
+
+.avec-lien:hover {
+    background-color: rgb(66, 66, 66);
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+/* ---------------------------------------- */
