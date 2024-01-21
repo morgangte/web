@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./styles/style.css" />
-    <title>Projets personnels</title>
+    <link rel="stylesheet" href="./styles/demineur.css" />
+    <title>Démineur</title>
 </head>
 
-<body>
+<body onload="main();">
     <header>
         <div class="left-menubar">
             <a href="./index.html">
@@ -24,9 +25,12 @@
                 </div>
             </a>
 
-            <div class="menu-select">
-                Projets personnels
-            </div>
+            <a href="./ppersonnels.html">
+                <div class="menu-select">
+                    Projets personnels
+                </div>
+            </a>
+
 
             <a href="./apropos.html">
                 <div class="menu-select">
@@ -37,23 +41,19 @@
         </div>
     </header>
 
-    <main>
-        <h1>
-            Projets personnels
-        </h1>
-        <section class="tab">
-            <h1>
-                Jeux
-            </h1>
-            <ul>
-                <li>
-                    <a href="./morpion.html">
-                        Morpion
-                    </a>
-                </li>
-            </ul>
-        </section>
-    </main>
+    <div id="demineur_container">
+        <canvas id="demineur_canvas" width="600px" height="600px">
+            Démineur
+        </canvas>
+
+        <div id="demineur_info">
+            Vous pouvez commencer à jouer
+        </div>
+
+        <input type="button" value="Recommencer" id="restart-button" />
+    </div>
+
+    <script type="text/javascript" src="scripts/demineur.js"></script>
 
 </body>
 

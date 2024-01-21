@@ -1,4 +1,4 @@
-#morpion_container {
+#demineur_container {
     display: flex;
     flex-direction: column;
     margin: 50px;
@@ -7,14 +7,13 @@
     gap: 10px;
 }
 
-#morpion_canvas {
-    border: solid 6px rgb(0, 0, 0);
-    width: 300px;
-    height: 300px;
-    box-shadow: 10px 5px 5px rgb(204, 204, 204);
+#demineur_canvas {
+    border: solid 3px rgb(0, 0, 0);
+    box-shadow: 10px 5px 5px rgb(179, 179, 179);
+    background-color: rgb(196, 196, 196);
 }
 
-#morpion_info {
+#demineur_info {
     width: 300px;
     min-height: 25px;
     text-align: center;
@@ -22,13 +21,13 @@
 }
 
 #restart-button {
-    background-color: rgb(231, 231, 231);
-    color: black;
+    background-color: rgb(219, 219, 219);
+    color: rgb(0, 0, 0);
     padding: 9px;
     border-radius: 15px;
 }
 
 #restart-button:hover {
-    background-color: rgb(173, 173, 173);
+    background-color: rgb(194, 194, 194);
     cursor: pointer;
 }
