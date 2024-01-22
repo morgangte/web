@@ -23,7 +23,7 @@ function newMorpion() {
         [x, y] = mp.cellCoordinates(x, y);
 
         if (mp.freeCells == 0) {
-            mp.printInfo("Partie terminée.")
+            mp.printInfo("Partie terminée")
         } else if (mp.grid[x][y] == 0) {
             mp.drawShape(mp.currentPlayer, x, y);
             mp.grid[x][y] = mp.currentPlayer;

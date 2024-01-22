@@ -39,16 +39,21 @@
         </div>
     </header>
 
-    <div id="demineur_container">
-        <canvas id="demineur_canvas" width="600px" height="600px">
-            Démineur
-        </canvas>
+    <div class="game-container">
+        <div id="demineur_container">
+            <h1>
+                Démineur
+            </h1>
 
-        <div id="demineur_info">
-            Vous pouvez commencer à jouer
+            <canvas id="demineur_canvas" width="600px" height="600px">
+                Démineur
+            </canvas>
+
+            <div id="demineur_info">
+            </div>
+
+            <input type="button" value="Recommencer" id="restart-button" />
         </div>
-
-        <input type="button" value="Recommencer" id="restart-button" />
     </div>
 
     <script type="text/javascript" src="scripts/demineur.js"></script>

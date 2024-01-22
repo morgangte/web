@@ -141,10 +141,6 @@ section>img {
     padding: 0px;
 }
 
-.lien-de-section>.avec-lien>article>h1:after {
-    content: "🗗";
-}
-
 .avec-lien {
     transition: 0.1s;
 }
@@ -155,4 +151,10 @@ section>img {
     transition: 0.1s;
 }
 
-/* ---------------------------------------- */
+/* ------------------- Jeux --------------------- */
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
