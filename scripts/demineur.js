@@ -61,7 +61,7 @@ function createDemineur(Xcells, Ycells) {
             de.flagged[x][y] = false;
             de.minesLeftToDiscover += 1;
             /*de.printInfo("Mines restantes : " + toString(de.minesLeftToDiscover));*/
-        } else {
+        } else if (de.unveiled[x][y] == false) {
             de.drawShape("flag", x, y);
             de.flagged[x][y] = true;
             de.minesLeftToDiscover -= 1;
