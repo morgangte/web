@@ -38,7 +38,9 @@ function createDemineur(Xcells, Ycells) {
         }
 
         if (de.grid[x][y] == -1) {
-            de.revealMines();
+            de.drawCellBackground("red", x, y);
+            de.drawShape("explosion", x, y);
+            de.revealMines(x, y);
             de.playing = false;
         } else if (de.grid[x][y] == 0) {
             de.updateZeroCells(x, y);
@@ -227,11 +229,12 @@ class Demineur {
         }
     }
 
-    revealMines() {
+    revealMines(except_x, except_y) {
         for (var i = 0; i < this.Xcells; i++) {
             for (var j = 0; j < this.Ycells; j++) {
-                if (this.grid[i][j] == -1) {
-                    this.drawCellBackground("red", i, j);
+                if ((this.grid[i][j] == -1) && (i != except_x) && (j != except_y)) {
+                    this.drawCellBackground("orange", i, j);
+                    this.drawShape("bomb", i, j);
                 }
             }
         }
@@ -271,12 +274,25 @@ class Demineur {
         this.cv_ct.closePath();
     }
 
+    drawDisc(x, y, r, color) {
+        this.cv_ct.beginPath();
+        this.cv_ct.lineWidth = 2;
+        this.cv_ct.fillStyle = color;
+
+        this.cv_ct.arc(x, y, r, 0, 2 * Math.PI);
+        this.cv_ct.fill();
+
+        this.cv_ct.closePath();
+
+    }
+
+
     drawGrid() {
-        for (var i = 1; i < this.Xcells; i++) {
+        for (var i = 0; i <= this.Xcells; i++) {
             this.drawLine(30 * i, 0, 30 * i, this.Ycells * 30, 1, "black");
         }
 
-        for (var i = 1; i < this.Ycells; i++) {
+        for (var i = 0; i <= this.Ycells; i++) {
             this.drawLine(0, 30 * i, this.Ycells * 30, 30 * i, 1, "black");
         }
     }
@@ -293,9 +309,16 @@ class Demineur {
 
     drawShape(shape, x, y) {
         if (shape == "bomb") {
-            /* to do */
+            this.drawDisc(30 * x + 15, 30 * y + 15, 7, "black");
+
+            this.drawLine(30 * x + 15, 30 * y + 5, 30 * x + 15, 30 * y + 25, 2, "black");
+            this.drawLine(30 * x + 8, 30 * y + 8, 30 * x + 22, 30 * y + 22, 2, "black");
+            this.drawLine(30 * x + 8, 30 * y + 22, 30 * x + 22, 30 * y + 8, 2, "black");
+            this.drawLine(30 * x + 5, 30 * y + 15, 30 * x + 25, 30 * y + 15, 2, "black");
         } else if (shape == "explosion") {
-            /* to do */
+            this.drawDisc(30 * x + 15, 30 * y + 15, 11, "orange");
+            this.drawDisc(30 * x + 15, 30 * y + 15, 6, "yellow");
+            this.drawDisc(30 * x + 15, 30 * y + 15, 3, "white");
         } else if (shape == "flag") {
             this.drawLine(30 * x + 11, 30 * y + 23, 30 * x + 23, 30 * y + 23, 2, "black");
             this.drawLine(30 * x + 17, 30 * y + 5, 30 * x + 17, 30 * y + 23, 2, "black");
