@@ -45,7 +45,7 @@
                 Démineur
             </h1>
 
-            <canvas id="demineur_canvas" width="600px" height="600px">
+            <canvas id="demineur_canvas">
                 Démineur
             </canvas>
 
@@ -53,6 +53,34 @@
             </div>
 
             <input type="button" value="Recommencer" id="restart-button" />
+        </div>
+
+        <div id="options_container">
+            <div class="opt_container">
+                <p>
+                    Largeur (cellules)
+                </p>
+                <div>
+                    <input type="number" id="de_opt_dimensions" name="de_opt_dimensions">
+                </div>
+            </div>
+
+            <div class="opt_container">
+                <p>
+                    Nombre de mines
+                </p>
+                <div>
+                    <input type="number" id="de_opt_minesNumber" name="de_opt_minesNumber">
+                </div>
+            </div>
+
+            <p id="options_info">
+            </p>
+
+            <div id="options_buttons_container">
+                <input type="button" value="Valeurs par défaut" id="default-values-button" />
+                <input type="button" value="Appliquer" id="apply-changes-button" />
+            </div>
         </div>
     </div>
 

@@ -1,24 +1,61 @@
 function main() {
-    const Xcells = 20;
-    const Ycells = 20;
-
-    createDemineur(Xcells, Ycells);
+    createDemineur();
 }
 
-function createDemineur(Xcells, Ycells) {
-    var cv = document.getElementById("demineur_canvas");
-    var cv_ct = cv.getContext("2d");
+function createDemineur() {
+    let cv = document.getElementById("demineur_canvas");
+    let cv_ct = cv.getContext("2d");
 
-    var info = document.getElementById("demineur_info");
+    let info = document.getElementById("demineur_info");
 
-    var de = new Demineur(cv, cv_ct, info, Xcells, Ycells);
+    let opt_info = document.querySelector("#options_info");
+    let balise_cellsNb = document.querySelector("#de_opt_dimensions");
+    let balise_minesNb = document.querySelector("#de_opt_minesNumber");
+    balise_cellsNb.value = 20;
+    balise_minesNb.value = 90;
+
+    let de = new Demineur(cv, cv_ct, info, 20, 20, 90);
     de.reset();
 
     /* restart button */
     const restart_button = document.querySelector("#restart-button");
 
     restart_button.addEventListener("click", function (event) {
+        de.printInfo("");
         de.reset();
+    });
+
+    /* set to default values button */
+    const def_val_button = document.querySelector("#default-values-button");
+
+    def_val_button.addEventListener("click", function (event) {
+        balise_cellsNb.value = 20;
+        balise_minesNb.value = 90;
+    });
+
+    /* apply changes button */
+    const apply_ch_button = document.querySelector("#apply-changes-button");
+
+    apply_ch_button.addEventListener("click", function (event) {
+        let cellsNb = balise_cellsNb.value;
+        let minesNb = balise_minesNb.value;
+
+        if (minesNb > cellsNb * cellsNb) {
+            opt_info.innerHTML = "<strong>Il y a plus de mines que de cases !<strong>";
+        } else if (minesNb > cellsNb * cellsNb - 9) {
+            opt_info.innerHTML = "<strong>Trop de mines !<strong>"
+        } else if ((cellsNb < 4) || (cellsNb > 100)) {
+            opt_info.innerHTML = "<strong>Entrez un nombre de cases compris entre 4 et 100<strong>";
+        } else if ((minesNb / (cellsNb * cellsNb) < 0.05) && (cellsNb > 80)) {
+            opt_info.innerHTML = "<strong>Trop peu de mines !<strong>"
+        } else {
+            de.printInfo("");
+            de.Xcells = cellsNb;
+            de.Ycells = cellsNb;
+            de.minesNb = minesNb;
+            de.reset();
+            opt_info.innerHTML = "";
+        }
     });
 
     /* clicks events */
@@ -34,17 +71,13 @@ function createDemineur(Xcells, Ycells) {
             de.setMines(x, y);
             de.computeMinesGrid();
             de.firstMove = false;
-            /*de.printInfo("Mines restantes : " + toString(de.minesLeftToDiscover));*/
+            de.printInfo("Mines restantes : " + de.minesLeftToDiscover);
         }
 
-        if (de.grid[x][y] == -1) {
-            de.revealMines(x, y);
-            de.playing = false;
-        } else if (de.grid[x][y] == 0) {
-            de.updateZeroCells(x, y);
+        if ((de.unveiled[x][y]) && (de.grid[x][y] > 0)) {
+            de.tryUnveilingAdjacentCells(x, y);
         } else {
-            de.drawCellBackground("white", x, y);
-            de.drawNumber(de.grid[x][y], x, y);
+            de.unveilCell(x, y);
         }
     }
 
@@ -60,12 +93,12 @@ function createDemineur(Xcells, Ycells) {
             de.drawCellBackground("lightgray", x, y);
             de.flagged[x][y] = false;
             de.minesLeftToDiscover += 1;
-            /*de.printInfo("Mines restantes : " + toString(de.minesLeftToDiscover));*/
+            de.printInfo("Mines restantes : " + de.minesLeftToDiscover);
         } else if (de.unveiled[x][y] == false) {
             de.drawShape("flag", x, y);
             de.flagged[x][y] = true;
             de.minesLeftToDiscover -= 1;
-            /*de.printInfo("Mines restantes : " + toString(de.minesLeftToDiscover));*/
+            de.printInfo("Mines restantes : " + de.minesLeftToDiscover);
         }
 
         return false;
@@ -81,12 +114,13 @@ function createDemineur(Xcells, Ycells) {
 }
 
 class Demineur {
-    constructor(cv, cv_ct, info, Xcells, Ycells) {
+    constructor(cv, cv_ct, info, Xcells, Ycells, minesNb) {
         this.cv = cv;
         this.cv_ct = cv_ct;
         this.info = info;
         this.Xcells = Xcells;
         this.Ycells = Ycells;
+        this.minesNb = minesNb;
         this.minesLeftToDiscover = 0;
 
         this.grid = Array.from({ length: Ycells }).map(() =>
@@ -109,14 +143,29 @@ class Demineur {
     }
 
     reset() {
+        this.cv.width = 30 * this.Xcells;
+        this.cv.height = 30 * this.Ycells;
+
         this.cv_ct.clearRect(0, 0, this.Xcells * 30, this.Ycells * 30);
         this.drawGrid();
         this.firstMove = true;
         this.playing = true;
         this.minesLeftToDiscover = 0;
 
-        for (var i = 0; i < this.Xcells; i++) {
-            for (var j = 0; j < this.Ycells; j++) {
+        this.grid = Array.from({ length: this.Ycells }).map(() =>
+            Array.from({ length: this.Xcells }).fill(0)
+        );
+
+        this.unveiled = Array.from({ length: this.Ycells }).map(() =>
+            Array.from({ length: this.Xcells }).fill(false)
+        );
+
+        this.flagged = Array.from({ length: this.Ycells }).map(() =>
+            Array.from({ length: this.Xcells }).fill(false)
+        );
+
+        for (let i = 0; i < this.Xcells; i++) {
+            for (let j = 0; j < this.Ycells; j++) {
                 this.grid[i][j] = 0;
                 this.unveiled[i][j] = false;
                 this.flagged[i][j] = false;
@@ -137,24 +186,40 @@ class Demineur {
     }
 
     setMines(except_x, except_y) {
-        var [except_Xs, except_Ys] = this.adjacentCells(except_x, except_y, true);
+        const [except_Xs, except_Ys] = this.adjacentCells(except_x, except_y, true);
 
-        var minesLeftToPlace = Math.floor((this.Xcells * this.Ycells) * 0.25);
+        let minesLeftToPlace = this.minesNb;
+        let i;
+        let j;
 
-        for (var i = 0; i < this.Xcells; i++) {
-            for (var j = 0; j < this.Ycells; j++) {
+        /* avoid infinite while loop */
+        if (minesLeftToPlace > this.Xcells * this.Ycells) {
+            console.log("Can't initialize the minesweeper : more mines than cells.");
+            return;
+        }
 
-                if ((Math.random() <= 0.25) && (minesLeftToPlace > 0)) {
-                    this.grid[i][j] = -1;
-                    minesLeftToPlace -= 1;
-                }
+        /* avoid placing mines around the first click */
+        this.grid[except_x][except_y] = -1;
+
+        for (let k = 0; k < except_Xs.length; k++) {
+            this.grid[except_Xs[k]][except_Ys[k]] = -1;
+        }
+
+        /* placing the real mines */
+        while (minesLeftToPlace > 0) {
+            i = Math.floor(Math.random() * this.Xcells);
+            j = Math.floor(Math.random() * this.Ycells);
+
+            if (this.grid[i][j] == 0) {
+                this.grid[i][j] = -1;
+                minesLeftToPlace -= 1;
             }
         }
 
         /* no mines around the first click */
         this.grid[except_x][except_y] = 0;
 
-        for (var k = 0; k < except_Xs.length; k++) {
+        for (let k = 0; k < except_Xs.length; k++) {
             this.grid[except_Xs[k]][except_Ys[k]] = 0;
         }
     }
@@ -166,8 +231,8 @@ class Demineur {
      * @returns coordinates of adjacent cells of the cell (x, y)
      */
     adjacentCells(x, y, diagonal) {
-        var Xs = [];
-        var Ys = [];
+        let Xs = [];
+        let Ys = [];
 
         if ((x - 1 >= 0) && (y - 1 >= 0) && (diagonal)) {
             Xs.push(x - 1);
@@ -206,9 +271,9 @@ class Demineur {
     }
 
     computeMinesNearCell(x, y) {
-        var [Xs, Ys] = this.adjacentCells(x, y, true);
+        const [Xs, Ys] = this.adjacentCells(x, y, true);
 
-        for (var i = 0; i < Xs.length; i++) {
+        for (let i = 0; i < Xs.length; i++) {
             if ((this.grid[Xs[i]][Ys[i]] == -1) && (this.grid[x][y] >= 0)) {
                 this.grid[x][y] += 1;
             }
@@ -216,8 +281,8 @@ class Demineur {
     }
 
     computeMinesGrid() {
-        for (var i = 0; i < this.Xcells; i++) {
-            for (var j = 0; j < this.Ycells; j++) {
+        for (let i = 0; i < this.Xcells; i++) {
+            for (let j = 0; j < this.Ycells; j++) {
                 this.computeMinesNearCell(i, j);
 
                 if (this.grid[i][j] == -1) {
@@ -227,7 +292,7 @@ class Demineur {
         }
     }
 
-    revealMines(bomb_x, bomb_y) {
+    revealMines() {
         for (var i = 0; i < this.Xcells; i++) {
             for (var j = 0; j < this.Ycells; j++) {
                 if ((this.grid[i][j] == -1) && (this.flagged[i][j] == false)) {
@@ -236,9 +301,47 @@ class Demineur {
                 }
             }
         }
+    }
 
-        this.drawCellBackground("red", bomb_x, bomb_y);
-        this.drawShape("explosion", bomb_x, bomb_y);
+    unveilCell(x, y) {
+        if (this.flagged[x][y]) {
+            return;
+        }
+
+        if (this.grid[x][y] == -1) {
+            this.revealMines();
+            this.drawCellBackground("red", x, y);
+            this.drawShape("explosion", x, y);
+            this.playing = false;
+        } else if (this.grid[x][y] == 0) {
+            this.updateZeroCells(x, y);
+        } else {
+            this.drawCellBackground("white", x, y);
+            this.drawNumber(this.grid[x][y], x, y);
+        }
+
+        this.unveiled[x][y] = true;
+    }
+
+    tryUnveilingAdjacentCells(x, y) {
+        const [Xs, Ys] = this.adjacentCells(x, y, true);
+
+        /* verify that the number of flagged cells is equal to the number of the cell */
+        let flaggedCells = 0;
+        for (let i = 0; i < Xs.length; i++) {
+            if (this.flagged[Xs[i]][Ys[i]]) {
+                flaggedCells += 1;
+            }
+        }
+
+        if (flaggedCells != this.grid[x][y]) {
+            return;
+        }
+
+        /* reveal adjacent cells */
+        for (let k = 0; k < Xs.length; k++) {
+            this.unveilCell(Xs[k], Ys[k]);
+        }
     }
 
     updateZeroCells(x, y) {
@@ -284,7 +387,6 @@ class Demineur {
         this.cv_ct.fill();
 
         this.cv_ct.closePath();
-
     }
 
 
