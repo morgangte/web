@@ -4,6 +4,11 @@ body {
     background-color: rgb(32, 32, 32);
     font-size: 16px;
     color: white;
+
+    /* Make the footer stay at the bottom of the page */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* --------------- header ------------------ */
@@ -16,7 +21,7 @@ header {
     margin: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: 10px 4px 8px rgb(24, 24, 24);
+    box-shadow: 10px 4px 16px rgb(24, 24, 24);
 }
 
 header>div>a {
@@ -67,10 +72,11 @@ header>div>a {
     cursor: pointer;
 }
 
-/* ---------------------------------------- */
+/* ------------------- main --------------------- */
 
 main {
     margin: 20px;
+    min-height: 00px;
 }
 
 a {
@@ -157,4 +163,19 @@ section>img {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* ------------------ footer --------------------- */
+
+footer {
+    padding: 20px;
+
+    /* Make the footer stay at the bottom of the page */
+    margin-top: auto;
+}
+
+#version-number {
+    color: rgb(189, 189, 189);
+    font-size: small;
+    text-align: right;
 }

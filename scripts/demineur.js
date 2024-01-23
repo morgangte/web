@@ -38,8 +38,6 @@ function createDemineur(Xcells, Ycells) {
         }
 
         if (de.grid[x][y] == -1) {
-            de.drawCellBackground("red", x, y);
-            de.drawShape("explosion", x, y);
             de.revealMines(x, y);
             de.playing = false;
         } else if (de.grid[x][y] == 0) {
@@ -229,15 +227,18 @@ class Demineur {
         }
     }
 
-    revealMines(except_x, except_y) {
+    revealMines(bomb_x, bomb_y) {
         for (var i = 0; i < this.Xcells; i++) {
             for (var j = 0; j < this.Ycells; j++) {
-                if ((this.grid[i][j] == -1) && (this.flagged[i][j] == false) && (i != except_x) && (j != except_y)) {
+                if ((this.grid[i][j] == -1) && (this.flagged[i][j] == false)) {
                     this.drawCellBackground("orange", i, j);
                     this.drawShape("bomb", i, j);
                 }
             }
         }
+
+        this.drawCellBackground("red", bomb_x, bomb_y);
+        this.drawShape("explosion", bomb_x, bomb_y);
     }
 
     updateZeroCells(x, y) {
@@ -298,7 +299,7 @@ class Demineur {
     }
 
     drawNumber(num, x, y) {
-        const colors = ["blue", "green", "red", "navy", "purple", "yellow", "aqua", "maroon"];
+        const colors = ["blue", "green", "red", "navy", "purple", "orange", "aqua", "maroon"];
 
         num = num.toString();
 
