@@ -232,7 +232,7 @@ class Demineur {
     revealMines(except_x, except_y) {
         for (var i = 0; i < this.Xcells; i++) {
             for (var j = 0; j < this.Ycells; j++) {
-                if ((this.grid[i][j] == -1) && (i != except_x) && (j != except_y)) {
+                if ((this.grid[i][j] == -1) && (this.flagged[i][j] == false) && (i != except_x) && (j != except_y)) {
                     this.drawCellBackground("orange", i, j);
                     this.drawShape("bomb", i, j);
                 }
