@@ -8,13 +8,28 @@ function createDemineur() {
 
     let info = document.getElementById("demineur_info");
 
-    let opt_info = document.querySelector("#options_info");
     let balise_cellsNb = document.querySelector("#de_opt_dimensions");
     let balise_minesNb = document.querySelector("#de_opt_minesNumber");
-    balise_cellsNb.value = 20;
-    balise_minesNb.value = 90;
 
-    let de = new Demineur(cv, cv_ct, info, 20, 20, 90);
+    const minesPercentage = new Map();
+    minesPercentage.set("TF", 0.1);
+    minesPercentage.set("F", 0.15);
+    minesPercentage.set("PF", 0.2);
+    minesPercentage.set("M", 0.25);
+    minesPercentage.set("PD", 0.3);
+    minesPercentage.set("D", 0.37);
+    minesPercentage.set("TD", 0.45);
+    minesPercentage.set("I", 0.6);
+
+    /* default settings */
+    function applyDefaultSettings() {
+        balise_cellsNb.value = 20;
+        balise_minesNb.value = "M";
+    }
+
+    applyDefaultSettings();
+
+    let de = new Demineur(cv, cv_ct, info, balise_cellsNb.value, balise_cellsNb.value, balise_cellsNb.value * balise_cellsNb.value * minesPercentage.get(balise_minesNb.value));
     de.reset();
 
     /* restart button */
@@ -28,34 +43,20 @@ function createDemineur() {
     /* set to default values button */
     const def_val_button = document.querySelector("#default-values-button");
 
-    def_val_button.addEventListener("click", function (event) {
-        balise_cellsNb.value = 20;
-        balise_minesNb.value = 90;
-    });
+    def_val_button.addEventListener("click", applyDefaultSettings);
 
     /* apply changes button */
     const apply_ch_button = document.querySelector("#apply-changes-button");
 
     apply_ch_button.addEventListener("click", function (event) {
         let cellsNb = balise_cellsNb.value;
-        let minesNb = balise_minesNb.value;
+        let minesNb = minesPercentage.get(balise_minesNb.value) * cellsNb * cellsNb;
 
-        if (minesNb > cellsNb * cellsNb) {
-            opt_info.innerHTML = "<strong>Il y a plus de mines que de cases !<strong>";
-        } else if (minesNb > cellsNb * cellsNb - 9) {
-            opt_info.innerHTML = "<strong>Trop de mines !<strong>"
-        } else if ((cellsNb < 4) || (cellsNb > 100)) {
-            opt_info.innerHTML = "<strong>Entrez un nombre de cases compris entre 4 et 100<strong>";
-        } else if ((minesNb / (cellsNb * cellsNb) < 0.05) && (cellsNb > 80)) {
-            opt_info.innerHTML = "<strong>Trop peu de mines !<strong>"
-        } else {
-            de.printInfo("");
-            de.Xcells = cellsNb;
-            de.Ycells = cellsNb;
-            de.minesNb = minesNb;
-            de.reset();
-            opt_info.innerHTML = "";
-        }
+        de.printInfo("");
+        de.Xcells = cellsNb;
+        de.Ycells = cellsNb;
+        de.minesNb = minesNb;
+        de.reset();
     });
 
     /* clicks events */

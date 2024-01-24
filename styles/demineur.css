@@ -16,6 +16,7 @@
     border: solid 3px rgb(0, 0, 0);
     box-shadow: 10px 5px 5px rgb(39, 39, 39);
     background-color: lightgray;
+    overflow: scroll;
 }
 
 #demineur_info {
@@ -65,20 +66,20 @@
     display: flex;
     flex-direction: row;
     justify-content: left;
-    width: 300px;
+    width: 500px;
 }
 
 .opt_container>p {
-    width: 80%;
+    width: 50%;
 }
 
 .opt_container>div {
     display: flex;
     justify-content: right;
-    width: 20%;
+    width: 50%;
 }
 
-.opt_container>div>input {
+.opt_container>div>select {
     background-color: rgb(49, 49, 49);
     border: 0px;
     border-bottom: solid 1px rgb(87, 87, 87);
@@ -87,12 +88,12 @@
     top: 11px;
     color: white;
     text-align: center;
-    width: 80px;
+    width: 170px;
     font-size: medium;
 }
 
-#options_info {
-    min-height: 20px;
+#de_opt_minesNumber:active {
+    text-align: left;
 }
 
 #options_buttons_container {

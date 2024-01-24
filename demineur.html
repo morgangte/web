@@ -58,24 +58,36 @@
         <div id="options_container">
             <div class="opt_container">
                 <p>
-                    Largeur (cellules)
+                    Dimensions
                 </p>
                 <div>
-                    <input type="number" id="de_opt_dimensions" name="de_opt_dimensions">
+                    <select id="de_opt_dimensions" name="de_opt_dimensions">
+                        <option value="10">10 x 10</option>
+                        <option value="20">20 x 20</option>
+                        <option value="30">30 x 30</option>
+                        <option value="40">40 x 40</option>
+                        <option value="50">50 x 50</option>
+                    </select>
                 </div>
             </div>
 
             <div class="opt_container">
                 <p>
-                    Nombre de mines
+                    Difficulté (pourcentage de mines)
                 </p>
                 <div>
-                    <input type="number" id="de_opt_minesNumber" name="de_opt_minesNumber">
+                    <select id="de_opt_minesNumber" name="de_opt_minesNumber">
+                        <option value="TF">Très facile (10%)</option>
+                        <option value="F">Facile (15%)</option>
+                        <option value="PF">Plutôt facile (20%)</option>
+                        <option value="M">Moyen (25%)</option>
+                        <option value="PD">Plutôt difficile (30%)</option>
+                        <option value="D">Difficile (37%)</option>
+                        <option value="TD">Très Difficile (45%)</option>
+                        <option value="I">Impossible (60%)</option>
+                    </select>
                 </div>
             </div>
-
-            <p id="options_info">
-            </p>
 
             <div id="options_buttons_container">
                 <input type="button" value="Valeurs par défaut" id="default-values-button" />
