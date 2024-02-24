@@ -143,6 +143,7 @@ class Demineur {
         this.playing = true;
     }
 
+    /* done */
     reset() {
         this.cv.width = 30 * this.Xcells;
         this.cv.height = 30 * this.Ycells;
@@ -174,6 +175,7 @@ class Demineur {
         }
     }
 
+    /* done */
     getClickCoordinates(event) {
         let rect = this.cv.getBoundingClientRect();
         let x = event.clientX - rect.left;
@@ -182,10 +184,12 @@ class Demineur {
         return [x, y];
     }
 
+    /* done */
     cellCoordinates(x, y) {
         return [Math.floor(x / 30), Math.floor(y / 30)];
     }
 
+    /* done */
     setMines(except_x, except_y) {
         const [except_Xs, except_Ys] = this.adjacentCells(except_x, except_y, true);
 
@@ -225,6 +229,7 @@ class Demineur {
         }
     }
 
+    /*done */
     /**
      * @param {int} x x coordinate
      * @param {int} y y coordinate
@@ -271,6 +276,7 @@ class Demineur {
         return [Xs, Ys];
     }
 
+    /* done */
     computeMinesNearCell(x, y) {
         const [Xs, Ys] = this.adjacentCells(x, y, true);
 
@@ -281,6 +287,7 @@ class Demineur {
         }
     }
 
+    /* done */
     computeMinesGrid() {
         for (let i = 0; i < this.Xcells; i++) {
             for (let j = 0; j < this.Ycells; j++) {
@@ -293,6 +300,7 @@ class Demineur {
         }
     }
 
+    /* done */
     revealMines() {
         for (var i = 0; i < this.Xcells; i++) {
             for (var j = 0; j < this.Ycells; j++) {
@@ -304,6 +312,7 @@ class Demineur {
         }
     }
 
+    /* done */
     unveilCell(x, y) {
         if (this.flagged[x][y]) {
             return;
@@ -324,6 +333,7 @@ class Demineur {
         this.unveiled[x][y] = true;
     }
 
+    /* done */
     tryUnveilingAdjacentCells(x, y) {
         const [Xs, Ys] = this.adjacentCells(x, y, true);
 
@@ -345,6 +355,7 @@ class Demineur {
         }
     }
 
+    /* done */
     updateZeroCells(x, y) {
         var [Xs_0, Ys_0] = this.adjacentCells(x, y, false);
         var [Xs_m, Ys_m] = this.adjacentCells(x, y, true);
@@ -367,6 +378,7 @@ class Demineur {
         }
     }
 
+    /* done */
     drawLine(x_start, y_start, x_end, y_end, lineWidth, color) {
         this.cv_ct.beginPath();
         this.cv_ct.lineWidth = lineWidth;
@@ -379,6 +391,7 @@ class Demineur {
         this.cv_ct.closePath();
     }
 
+    /* done */
     drawDisc(x, y, r, color) {
         this.cv_ct.beginPath();
         this.cv_ct.lineWidth = 2;
@@ -390,7 +403,7 @@ class Demineur {
         this.cv_ct.closePath();
     }
 
-
+    /* done */
     drawGrid() {
         for (var i = 0; i <= this.Xcells; i++) {
             this.drawLine(30 * i, 0, 30 * i, this.Ycells * 30, 1, "black");
@@ -401,6 +414,7 @@ class Demineur {
         }
     }
 
+    /* done */
     drawNumber(num, x, y) {
         const colors = ["blue", "green", "red", "navy", "purple", "orange", "aqua", "maroon"];
 
@@ -411,6 +425,7 @@ class Demineur {
         this.cv_ct.fillText(num, 30 * x + 9.5, 30 * y + 22);
     }
 
+    /* done */
     drawShape(shape, x, y) {
         if (shape == "bomb") {
             this.drawDisc(30 * x + 15, 30 * y + 15, 7, "black");
@@ -433,11 +448,13 @@ class Demineur {
         }
     }
 
+    /* done */
     drawCellBackground(color, x, y) {
         this.cv_ct.fillStyle = color;
         this.cv_ct.fillRect(30 * x + 1, 30 * y + 1, 28, 28);
     }
 
+    /* done */
     printInfo(text) {
         this.info.innerHTML = text;
     }

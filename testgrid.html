@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/testgrid.css" />
+    <title>Game Of Life</title>
+</head>
+
+<body>
+    <header>
+        <div class="left-menubar">
+            <a href="./index.html">
+                <img src="./images/home_icon.svg" alt="home">
+            </a>
+        </div>
+
+        <div class="right-menubar">
+            <a href="./pacademiques.html">
+                <div class="menu-select">
+                    Projets académiques
+                </div>
+            </a>
+
+            <a href="./ppersonnels.html">
+                <div class="menu-select">
+                    Projets personnels
+                </div>
+            </a>
+
+
+            <a href="./apropos.html">
+                <div class="menu-select">
+                    A propos
+                </div>
+            </a>
+
+        </div>
+    </header>
+
+    <div class="grid-container">
+        <canvas id="grid-canvas" width="600" height="600"></canvas>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <button id="start-button">Start</button>
+        <button id="play-button">Play / Pause</button>
+        <button id="stop-button">Stop</button>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <button id="clear-button">Clear</button>
+        <button id="glider-spaceship-button">Glider</button>
+    </div>
+
+    <script type="module" src="scripts/gameoflife.js"></script>
+
+</body>
+
+</html>

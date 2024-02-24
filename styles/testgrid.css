@@ -1,0 +1,27 @@
+body {
+    align-items: center;
+}
+
+.grid-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: min(70vh, 80%);
+    max-width: 1000px;
+    height: 100%;
+    width: 80%;
+}
+
+#grid-canvas {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    margin-top: 20px;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    background-color: aliceblue;
+    border-radius: 4px;
+}

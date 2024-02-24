@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/testgrid.css" />
+    <title>Demineur 2.0</title>
+</head>
+
+<body>
+    <header>
+        <div class="left-menubar">
+            <a href="./index.html">
+                <img src="./images/home_icon.svg" alt="home">
+            </a>
+        </div>
+
+        <div class="right-menubar">
+            <a href="./pacademiques.html">
+                <div class="menu-select">
+                    Projets académiques
+                </div>
+            </a>
+
+            <a href="./ppersonnels.html">
+                <div class="menu-select">
+                    Projets personnels
+                </div>
+            </a>
+
+
+            <a href="./apropos.html">
+                <div class="menu-select">
+                    A propos
+                </div>
+            </a>
+
+        </div>
+    </header>
+
+    <div class="grid-container">
+        <canvas id="grid-canvas" width="1900" height="1900"></canvas>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <button id="restart-button">Restart</button>
+    </div>
+
+    <script type="module" src="scripts/new_demineur.js"></script>
+
+</body>
+
+</html>
