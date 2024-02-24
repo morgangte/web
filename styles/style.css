@@ -157,14 +157,6 @@ section>img {
     transition: 0.1s;
 }
 
-/* ------------------- Jeux --------------------- */
-
-.game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 /* ------------------ footer --------------------- */
 
 footer {

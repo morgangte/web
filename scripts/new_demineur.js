@@ -4,16 +4,40 @@ import { Grid } from "./modules/grid.mjs";
 window.addEventListener("load", main);
 
 function main() {
-    const cv = document.querySelector("#grid-canvas");
+    const cv = document.querySelector("#game-canvas");
     const ctx = cv.getContext("2d");
 
-    let de = new Demineur(cv, ctx, 50, 50, 1900, 1900, 1000);
+    let de = new Demineur(cv, ctx, 20, 20, 600, 600, 100);
     de.initializeGrid();
+
+    /* ----------------- Settings ------------------- */
+
+    const preset_setting = document.querySelector("#demineur-preset");
+
+    const width_setting = document.querySelector("demineur-width");
+
+    const heigth_setting = document.querySelector("#demineur-heigth");
+
+    const mines_percentage_setting = document.querySelector("#demineur-mine-percentage");
+
+    /* ----------------- Buttons -------------------- */
 
     const restart_button = document.querySelector("#restart-button");
     restart_button.addEventListener("click", function (e) {
         de.initializeGrid();
     });
+
+    const default_sett_button = document.querySelector("#default-settings");
+    default_sett_button.addEventListener("click", function (e) {
+
+    });
+
+    const apply_ch_button = document.querySelector("#apply-changes");
+    apply_ch_button.addEventListener("click", function (e) {
+
+    });
+
+    /* ------------------ Canvas -------------------- */
 
     de.cv.addEventListener("click", function (e) {
         let [x, y] = de.getCellCoordinates(e);
@@ -59,7 +83,6 @@ function main() {
             de.flagCell(x, y);
         }
     });
-
 }
 
 class DemineurCell extends Cell {
@@ -193,7 +216,6 @@ class Demineur extends Grid {
             }
         }
 
-        this.drawGrid("black");
         this.setColor("grey");
         this.drawGrid("black");
 
