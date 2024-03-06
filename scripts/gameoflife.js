@@ -4,29 +4,74 @@ import { Grid } from "./modules/grid.mjs"
 window.addEventListener("load", main);
 
 function main() {
-    const cv = document.querySelector("#grid-canvas");
+    const cv = document.querySelector("#game-canvas");
     const ctx = cv.getContext("2d");
 
     let gol = new GameOfLife(cv, ctx, 20, 20, 600, 600);
     gol.initializeGrid();
 
+    /* ----------------- Preset ---------------------- */
+
+    const presets_id = {
+        "glider": 0
+    }
+
+    const presets_nbXCells = [20];
+    const presets_nbYCells = [20];
+
+    /* ----------------- Settings -------------------- */
+
+    let preset_setting = document.querySelector("#gol-spaceship-select");
+
     /* ----------------- Buttons --------------------- */
 
-    const start_button = document.querySelector("#start-button");
+    /* zoom */
+
+    let zoom = 100;
+
+    let gameboard = document.querySelector(".game-board");
+
+    function updateZoom() {
+        gameboard.style.setProperty("--zoom", zoom + "vh");
+    }
+
+    const zoom_plus_button = document.querySelector("#zoom-plus");
+    zoom_plus_button.addEventListener("click", function (e) {
+        if (zoom > 140) {
+            return;
+        }
+
+        zoom += 20;
+        updateZoom();
+    });
+
+    const zoom_minus_button = document.querySelector("#zoom-minus");
+    zoom_minus_button.addEventListener("click", function (e) {
+        if (zoom < 30) {
+            return;
+        }
+
+        zoom -= 20;
+        updateZoom();
+    });
+
+    /* Game of life commands */
+
+    const start_button = document.querySelector("#gol-start");
     start_button.addEventListener("click", function (e) {
-        gol.start(300);
+        gol.start(150);
         start_button.disabled = true;
         stop_button.disabled = false;
         play_button.disabled = false;
     });
 
-    const play_button = document.querySelector("#play-button");
+    const play_button = document.querySelector("#gol-play-pause");
     play_button.disabled = true;
     play_button.addEventListener("click", function (e) {
         gol.switchPlayPause();
     });
 
-    const stop_button = document.querySelector("#stop-button");
+    const stop_button = document.querySelector("#gol-stop");
     stop_button.disabled = true;
     stop_button.addEventListener("click", function (e) {
         gol.stop();
@@ -35,19 +80,21 @@ function main() {
         play_button.disabled = true;
     });
 
-    const clear_button = document.querySelector("#clear-button");
-    clear_button.addEventListener("click", function (e) {
-        gol.selectPreset("none");
-    });
+    const apply_ch_button = document.querySelector("#gol-apply-changes");
+    apply_ch_button.addEventListener("click", function (e) {
+        let id = presets_id[preset_setting.value];
 
-    const glider_spaceship_button = document.querySelector("#glider-spaceship-button");
-    glider_spaceship_button.addEventListener("click", function (e) {
         if (gol.isRunning()) {
             gol.stop();
             gol.start(300);
         }
 
         gol.selectPreset("glider");
+    });
+
+    const clear_button = document.querySelector("#gol-clear");
+    clear_button.addEventListener("click", function (e) {
+        gol.selectPreset("none");
     });
 
     gol.cv.addEventListener("click", function (e) {
@@ -69,6 +116,9 @@ class GameOfLife extends Grid {
         this.started = false;
 
         this.grid;
+        this.interval;
+
+        this.colors = ["#FEFEFE", "#FCFCFC"];
     }
 
     initializeGrid() {
@@ -81,6 +131,7 @@ class GameOfLife extends Grid {
         for (let i = 0; i < this.nbXCells; i++) {
             for (let j = 0; j < this.nbYCells; j++) {
                 this.grid[i][j] = new Cell(this.cv, this.ctx, this.cellWidth * i, this.cellHeigth * j, this.cellWidth, this.cellHeigth, 0);
+                this.grid[i][j].setColor(this.colors[(i + j) % 2]);
             }
         }
     }
@@ -133,6 +184,7 @@ class GameOfLife extends Grid {
         for (let i = 0; i < this.nbXCells; i++) {
             for (let j = 0; j < this.nbYCells; j++) {
                 newGrid[i][j] = new Cell(this.cv, this.ctx, this.cellWidth * i, this.cellHeigth * j, this.cellWidth, this.cellHeigth, 0);
+                this.grid[i][j].setColor(this.colors[(i + j) % 2]);
             }
         }
 
@@ -151,9 +203,9 @@ class GameOfLife extends Grid {
                 }
 
                 if ((count < 2) && (this.grid[i][j].value == 1)) {
-                    newGrid[i][j].touch(0, "white", this.gridDrawn);
+                    newGrid[i][j].touch(0, this.colors[(i + j) % 2], this.gridDrawn);
                 } else if ((count > 3) && (this.grid[i][j].value == 1)) {
-                    newGrid[i][j].touch(0, "white", this.gridDrawn);
+                    newGrid[i][j].touch(0, this.colors[(i + j) % 2], this.gridDrawn);
                 } else if (this.grid[i][j].value == 1) {
                     newGrid[i][j].touch(1, "black", this.gridDrawn);
                 } else if ((count == 3) && (this.grid[i][j].value == 0)) {
@@ -173,7 +225,7 @@ class GameOfLife extends Grid {
         let Ys;
         for (let i = 0; i < this.nbXCells; i++) {
             for (let j = 0; j < this.nbYCells; j++) {
-                this.touchCell(i, j, 0, "white");
+                this.touchCell(i, j, 0, this.colors[(i + j) % 2]);
             }
         }
 

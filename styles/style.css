@@ -1,3 +1,57 @@
+/* ----------- GENERAL STYLE ------------------ */
+
+/* Button */
+
+button {
+    background-color: rgb(235, 235, 235);
+    color: black;
+    border-radius: 5px;
+    font-size: 15px;
+    border: solid 1px rgb(41, 41, 41);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(206, 206, 206);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    color: rgba(14, 14, 14, 0.836);
+    background-color: rgba(221, 221, 221, 0.842);
+}
+
+/* Select */
+
+select {
+    background-color: rgb(235, 235, 235);
+    color: black;
+    border-radius: 5px;
+    font-size: 13px;
+    border: solid 1px rgb(41, 41, 41);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+select:hover {
+    cursor: pointer;
+    background-color: rgb(206, 206, 206);
+}
+
+/* Input */
+
+input {
+    background-color: rgb(235, 235, 235);
+    color: black;
+    border-radius: 5px;
+    font-size: 13px;
+    border: solid 1px rgb(41, 41, 41);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+}
+
+/* --------------- body ----------------------- */
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
@@ -97,7 +151,7 @@ section {
     margin-bottom: 15px;
     background-color: rgb(51, 51, 51);
     border-radius: 7px;
-    width: 700px;
+    width: 500px;
 }
 
 section>article {

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/grid.css" />
+    <title>Game of Life</title>
+</head>
+
+<body>
+    <header>
+        <div class="left-menubar">
+            <a href="../index.html">
+                <img src="../images/home_icon.svg" alt="home">
+            </a>
+        </div>
+
+        <div class="right-menubar">
+            <a href="../about.html">
+                <div class="menu-select">
+                    A propos
+                </div>
+            </a>
+
+        </div>
+    </header>
+
+    <section class="game">
+
+        <h1>Game of Life</h1>
+
+        <article style="height: 20px; margin: 0px; padding: 0px;"></article>
+
+        <article class="game-board">
+            <canvas id="game-canvas" width="600" height="600" style="background-color: white;"></canvas>
+        </article>
+
+        <article class="game-cmd">
+            <button id="gol-start">Start</button>
+            <button id="gol-play-pause">Play / Pause</button>
+            <button id="gol-stop">Stop</button>
+
+            <button id="gol-apply-changes">Appliquer les paramètres</button>
+            <button id="gol-clear">Clear</button>
+        </article>
+
+        <article class="game-options">
+            <h1>Presets</h1>
+
+            <div class="game-option">
+                <h2>Spaceship</h2>
+
+                <select class="option-select" name="gol-spaceship-select" id="gol-spaceship-select">
+                    <option value="glider">Glider</option>
+                </select>
+            </div>
+
+        </article>
+
+        <article class="game-options">
+            <h1>Options</h1>
+
+            <div class="game-option">
+                <h2>Zoom</h2>
+
+                <div class="zoom-control">
+                    <button class="zoom" id="zoom-plus">+</button>
+                    <button class="zoom" id="zoom-minus">-</button>
+                </div>
+            </div>
+
+        </article>
+    </section>
+
+    <script type="module" src="../scripts/gameoflife.js"></script>
+
+</body>
+
+</html>

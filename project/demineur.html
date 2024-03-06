@@ -4,33 +4,21 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="../styles/demineur.css" />
+    <link rel="stylesheet" href="../styles/grid.css" />
     <title>Démineur</title>
 </head>
 
-<body onload="main();">
+<body>
     <header>
         <div class="left-menubar">
-            <a href="./index.html">
-                <img src="./images/home_icon.svg" alt="home">
+            <a href="../index.html">
+                <img src="../images/home_icon.svg" alt="home">
             </a>
         </div>
 
         <div class="right-menubar">
-            <a href="./pacademiques.html">
-                <div class="menu-select">
-                    Projets académiques
-                </div>
-            </a>
 
-            <a href="./ppersonnels.html">
-                <div class="menu-select">
-                    Projets personnels
-                </div>
-            </a>
-
-
-            <a href="./apropos.html">
+            <a href="../about.html">
                 <div class="menu-select">
                     A propos
                 </div>
@@ -39,64 +27,106 @@
         </div>
     </header>
 
-    <div class="game-container">
-        <div id="demineur_container">
-            <h1>
-                Démineur
-            </h1>
+    <section class="game">
 
-            <canvas id="demineur_canvas">
-                Démineur
-            </canvas>
+        <h1>Démineur</h1>
 
-            <div id="demineur_info">
+        <article class="game-top">
+            <p class="left-text-info" id="time-element">
+                Temps : 00:00
+            </p>
+        </article>
+
+        <article class="game-board">
+            <canvas id="game-canvas" width="2000" height="2000"></canvas>
+        </article>
+
+        <article class="game-bottom">
+            <p class="left-text-info" id="setting-applied-info"></p>
+            <p class="right-text-info" id="demineur-mines-left">
+                mines restantes
+            </p>
+        </article>
+
+        <article class="game-cmd">
+            <button id="demineur-restart-button">Restart</button>
+            <button id="default-settings">Options par défaut</button>
+            <button id="apply-changes">Appliquer les modifications</button>
+        </article>
+
+        <article class="game-options">
+            <h1>Options</h1>
+
+            <div class="game-option">
+                <h2>Preset</h2>
+
+                <select class="option-select" name="demineur-preset" id="demineur-preset">
+                    <option value="0">Débutant</option>
+                    <option value="1">Initié</option>
+                    <option value="2">Intermédiaire</option>
+                    <option value="3">Avancé</option>
+                    <option value="4">Expert</option>
+                    <option value="5">Master</option>
+                    <option value="6">Alien</option>
+                </select>
             </div>
 
-            <input type="button" value="Recommencer" id="restart-button" />
-        </div>
+            <div class="game-option">
+                <h2>Zoom</h2>
 
-        <div id="options_container">
-            <div class="opt_container">
-                <p>
-                    Dimensions
-                </p>
-                <div>
-                    <select id="de_opt_dimensions" name="de_opt_dimensions">
-                        <option value="10">10 x 10</option>
-                        <option value="20">20 x 20</option>
-                        <option value="30">30 x 30</option>
-                        <option value="40">40 x 40</option>
-                        <option value="50">50 x 50</option>
-                    </select>
+                <div class="zoom-control">
+                    <button class="zoom" id="zoom-plus">+</button>
+                    <button class="zoom" id="zoom-minus">-</button>
                 </div>
             </div>
 
-            <div class="opt_container">
-                <p>
-                    Difficulté (pourcentage de mines)
-                </p>
-                <div>
-                    <select id="de_opt_minesNumber" name="de_opt_minesNumber">
-                        <option value="TF">Très facile (10%)</option>
-                        <option value="F">Facile (15%)</option>
-                        <option value="PF">Plutôt facile (20%)</option>
-                        <option value="M">Moyen (25%)</option>
-                        <option value="PD">Plutôt difficile (30%)</option>
-                        <option value="D">Difficile (37%)</option>
-                        <option value="TD">Très Difficile (45%)</option>
-                        <option value="I">Impossible (60%)</option>
-                    </select>
-                </div>
+        </article>
+
+        <article class="game-options">
+
+            <h1>Options avancées</h1>
+
+            <div class="game-option">
+                <h2>
+                    Taille
+                    <span>
+                        <img src="../images/info_circle_icon.svg" alt="(info)" width="15px"
+                            style="margin-top: 1px; margin-left: 3px; position: absolute;" class="info-icon">
+
+                        <span class="infobulle">
+                            <strong>Taille</strong> (hauteur x largeur)<br>
+                            min: 4<br>
+                            max: 150
+                        </span>
+                    </span>
+                </h2>
+
+                <input class="number-input" type="number" min="4" max="150" id="demineur-heigth">
+                <span class="spaced">x</span>
+                <input class="number-input" type="number" min="4" max="150" id="demineur-width">
+
+
             </div>
 
-            <div id="options_buttons_container">
-                <input type="button" value="Valeurs par défaut" id="default-values-button" />
-                <input type="button" value="Appliquer" id="apply-changes-button" />
-            </div>
-        </div>
-    </div>
+            <div class="game-option">
+                <h2>
+                    Pourcentage de mines
+                    <img src="../images/info_circle_icon.svg" alt="(info)" width="15px"
+                        style="margin-top: 1px; margin-left: 3px; position: absolute;" class="info-icon">
 
-    <script type="text/javascript" src="../scripts/demineur.js"></script>
+                    <span class="infobulle infobulle-mines">
+                        <strong>Pourcentage de mines</strong><br>
+                        min: 4<br>
+                        max: 95
+                    </span>
+                </h2>
+
+                <input class="number-input" type="number" min="0" max="100" id="demineur-mine-percentage">
+            </div>
+        </article>
+    </section>
+
+    <script type="module" src="../scripts/demineur.js"></script>
 
 </body>
 

@@ -8,16 +8,18 @@ export class Cell extends Drawable {
         this.y = y;
 
         this.value = value;
+        this.color;
 
         this.gridDrawn = false;
     }
 
     setColor(color, gridDrawn) {
+        this.color = color;
         this.ctx.fillStyle = color;
         this.gridDrawn = gridDrawn;
 
         if (gridDrawn) {
-            this.ctx.fillRect(this.x + 1, this.y + 1, this.width - 2, this.heigth - 2);
+            this.ctx.fillRect(this.x + 1, this.y + 1, this.width - 1, this.heigth - 1);
         } else {
             this.ctx.fillRect(this.x, this.y, this.width, this.heigth);
         }
@@ -34,5 +36,9 @@ export class Cell extends Drawable {
 
     getValue() {
         return this.value;
+    }
+
+    getColor() {
+        return this.color;
     }
 }

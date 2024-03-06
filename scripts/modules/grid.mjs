@@ -41,12 +41,6 @@ export class Grid extends Drawable {
         return [Math.floor(x / relativeWidth), Math.floor(y / relativeHeigth)];
     }
 
-    /**
-     * Sets the color of each cell of the grid to color.
-     * 
-     * @param {string} color The color.
-     * @param {boolean} gridDrawn Are the lines between the cells drawn ?
-     */
     setColor(color) {
         for (let i = 0; i < this.nbXCells; i++) {
             for (let j = 0; j < this.nbYCells; j++) {
