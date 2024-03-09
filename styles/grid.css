@@ -133,6 +133,7 @@ section.game>article.game-cmd {
     border-radius: 5px;
 }
 
+section.game>article.game-cmd>button#snake-restart-button,
 section.game>article.game-cmd>button#demineur-restart-button {
     grid-row: 1;
     grid-column-start: 1;

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/grid.css" />
+    <title>Snake</title>
+</head>
+
+<body>
+    <header>
+        <div class="left-menubar">
+            <a href="../index.html">
+                <img src="../images/home_icon.svg" alt="home">
+            </a>
+        </div>
+
+        <div class="right-menubar">
+            <a href="../about.html">
+                <div class="menu-select">
+                    A propos
+                </div>
+            </a>
+
+        </div>
+    </header>
+
+    <section class="game">
+
+        <h1>Snake</h1>
+
+        <article class="game-top">
+            <p class="left-text-info" id="time-element">
+                Temps : 00:00
+            </p>
+        </article>
+
+        <article class="game-board">
+            <canvas id="game-canvas" width="2000" height="2000" style="background-color: #3fa34d;"></canvas>
+        </article>
+
+        <article class="game-bottom">
+            <p class="left-text-info" id="snake-score-element">
+                Score : 0
+            </p>
+        </article>
+
+        <article class="game-cmd">
+            <button id="snake-restart-button">Restart</button>
+            <button id="default-settings">Options par défaut</button>
+            <button id="apply-changes">Appliquer les paramètres</button>
+        </article>
+
+        <article class="game-options">
+            <h1>Options</h1>
+
+            <div class="game-option">
+                <h2>Zoom</h2>
+
+                <div class="zoom-control">
+                    <button class="zoom" id="zoom-plus">+</button>
+                    <button class="zoom" id="zoom-minus">-</button>
+                </div>
+            </div>
+
+        </article>
+    </section>
+
+    <script type="module" src="../scripts/snake.js"></script>
+
+</body>
+
+</html>

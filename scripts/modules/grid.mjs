@@ -93,14 +93,6 @@ export class Grid extends Drawable {
         }
     }
 
-    /**
-     * Returns the adjacent cells of a given cell (x, y).
-     * 
-     * @param {int} x x coordinate of the cell.
-     * @param {int} y y coordinate of the cell.
-     * @param {boolean} diagonal Count the diagonal adjacent cells ?
-     * @returns A two-dimension array of x and y coordinates of adjacent cells.
-     */
     getAdjacentCells(x, y, diagonal) {
         let Xs = [];
         let Ys = [];

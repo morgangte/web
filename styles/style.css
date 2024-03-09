@@ -1,5 +1,9 @@
 /* ----------- GENERAL STYLE ------------------ */
 
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Button */
 
 button {
