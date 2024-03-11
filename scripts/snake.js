@@ -120,26 +120,47 @@ function main() {
         switch (e.key) {
             case "ArrowUp":
             case "z":
-                if (snake.currentDirection != "S") {
+                if (snake.hasNewDirection) {
+                    snake.nextnextDirection = "N";
+                    break;
+                }
+                if ((snake.currentDirection != "S") && (snake.nextDirection != "N")) {
                     snake.nextDirection = "N";
+                    snake.hasNewDirection = true;
                 }
                 break;
             case "ArrowLeft":
             case "q":
-                if (snake.currentDirection != "E") {
-                    snake.nextDirection = "W";
+                if (snake.hasNewDirection) {
+                    snake.nextnextDirection = "W";
+                    break;
                 }
+                if ((snake.currentDirection != "E") && (snake.nextDirection != "W")) {
+                    snake.nextDirection = "W";
+                    snake.hasNewDirection = true;
+                }
+
                 break;
             case "ArrowDown":
             case "s":
-                if (snake.currentDirection != "N") {
+                if (snake.hasNewDirection) {
+                    snake.nextnextDirection = "S";
+                    break;
+                }
+                if ((snake.currentDirection != "N") && (snake.nextDirection != "S")) {
                     snake.nextDirection = "S";
+                    snake.hasNewDirection = true;
                 }
                 break;
             case "ArrowRight":
             case "d":
-                if (snake.currentDirection != "W") {
+                if (snake.hasNewDirection) {
+                    snake.nextnextDirection = "E";
+                    break;
+                }
+                if ((snake.currentDirection != "W") && (snake.nextDirection != "E")) {
                     snake.nextDirection = "E";
+                    snake.hasNewDirection = true;
                 }
                 break;
         }
@@ -175,6 +196,8 @@ class Snake extends Grid {
         this.interval;
         this.currentDirection = "N";
         this.nextDirection = "N";
+        this.nextnextDirection;
+        this.hasNewDirection;
 
         this.grid;
         this.snake;
@@ -322,7 +345,12 @@ class Snake extends Grid {
                 y = this.snake[0][1];
                 break;
         }
+        this.hasNewDirection = false;
         this.currentDirection = this.nextDirection;
+        if (this.nextnextDirection != null) {
+            this.nextDirection = this.nextnextDirection;
+            this.nextnextDirection = null;
+        }
 
         if (this.isSnakeThere(x, y) || (x < 0) || (x >= this.nbXCells) || (y < 0) || (y >= this.nbYCells)) {
             this.lost = true;
